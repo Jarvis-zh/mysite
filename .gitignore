@@ -1,0 +1,10 @@
+
+.idea/dbnavigator.xml
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/mysite.iml
+.idea/workspace.xml
+*.pyc
+db.sqlite3
