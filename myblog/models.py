@@ -37,7 +37,7 @@ class Post(models.Model):
     # 修改时间
     modified_time = models.DateTimeField()
     # 文章摘要 ，可以为空
-    excerpt = models.CharField(max_length=100)
+    excerpt = models.CharField(max_length=100, blank=True)
     # 文章作者
     author = models.ForeignKey(User)
     # 文章分类

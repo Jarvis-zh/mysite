@@ -1,15 +1,21 @@
 #-*- coding:utf-8 -*-
-from django.shortcuts import render
-
+from django.shortcuts import render, get_object_or_404
+from .models import Post
 
 def index(request):
-    return render(request, 'myblog/index.html', None)
+    post_list = Post.objects.all()[:4]
+    context = {'post_list' : post_list}
+    return render(request, 'myblog/index.html', context)
+
+def detail(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    context = {'post': post}
+    return render(request, 'myblog/detail.html', context)
 
 def about(request):
-    return render(request, 'myblog/about.html', None)
+    return render(request, 'myblog/about.html')
 
 def contact(request):
-    return render(request, 'myblog/contact.html', None)
+    return render(request, 'myblog/contact.html')
 
-def detail(request):
-    return render(request, 'myblog/detail.html', None)
+
