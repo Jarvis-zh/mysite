@@ -45,5 +45,13 @@ class Post(models.Model):
     # 文章标签, 允许为空
     tags = models.ManyToManyField(Tag, blank=True)
 
+    #文章阅读量
+    views = models.PositiveIntegerField(default=0)
+
     def __str__(self):
         return self.title
+
+    def increase_views(self):
+        self.views += 1
+        self.save(update_fields=['views'])
+

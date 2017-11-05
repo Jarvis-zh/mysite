@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
-
-{% block main%}
+{% block pagetitle %}
+    <title>我的博客-文章列表</title>
+{% endblock %}
+{% block maincontent%}
 <!-- 文章列表 -->
 {% for post in post_list %}
     <div>
@@ -8,11 +10,11 @@
             <heard>
                 <h3><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;{{ post.title }}</h3>
                 <h6>
-                    <span>更新时间:&nbsp;{{ post.modified_time }}</span>
+                    <span>更新时间:&nbsp;{{ post.modified_time.year }}年{{ post.modified_time.month }}月{{ post.modified_time.day }}日</span>
                     &nbsp;&nbsp;
                     <span>作者:&nbsp;{{ post.author }}</span>
                     &nbsp;&nbsp;
-                    <span>阅读量:&nbsp;9999</span>
+                    <span>阅读量:&nbsp;{{ post.views }}</span>
                 </h6>
             </heard>
 
@@ -24,7 +26,13 @@
                 {% endif %}
             </div>
             <a href="{% url 'myblog:detail' post.id%}" class="btn btn-default" target="_blank">阅读全文&nbsp;<span class="glyphicon glyphicon-circle-arrow-right"></span></a>
-            <h5><span class="glyphicon glyphicon-tag"><a href="#"><em>&nbsp;标签1</em></a></span></h5>
+            <h5>
+                <span class="glyphicon glyphicon-tag">
+                {% for tag in post.tags.all %}
+                <a href="{% url 'myblog:tag' tag.pk %}"><em>&nbsp;{{ tag.name }}</em></a>
+                {% endfor %}
+                </span>
+            </h5>
         </article>
     </div>
     <hr>

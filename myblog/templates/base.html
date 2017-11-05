@@ -4,7 +4,9 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Home</title>
+    {% block pagetitle %}
+    <title>我的博客</title>
+    {% endblock %}
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
 
@@ -33,13 +35,13 @@
                     <div class="collapse navbar-collapse">
                         <ul class="nav nav-pills navbar-nav">
                             <li>
-                                <a href="{% url 'myblog:index' %}">Home</a>
+                                <a href="{% url 'myblog:index' %}">首页</a>
                             </li>
                             <li>
-                                <a href="{% url 'myblog:about' %}">About</a>
+                                <a href="{% url 'myblog:about' %}">关于我</a>
                             </li>
                             <li>
-                                <a href="{% url 'myblog:contact' %}">Contact</a>
+                                <a href="{% url 'myblog:contact' %}">联系我</a>
                             </li>
                         </ul>
                     </div>
@@ -65,13 +67,13 @@
             </div>
         </div>
     </header>
-
+    {% block mainbody %}
     <div class="widewrapper main">
         <div class="container">
             <div class="row">
                 <!-- 文章列表 -->
                 <div class="col-md-8 blog-main">
-                    {% block main %}
+                    {% block maincontent %}
                     {% endblock %}
                 </div>
                 <!-- 右边栏 -->
@@ -101,7 +103,7 @@
                             {% get_archives as date_list %}
                             <ul class="clean-list">
                                 {% for date in date_list  %}
-                                <li><a href="">{{ date.year }}年{{ date.month }}月</a></li>
+                                <li><a href="{% url 'myblog:archives' date.year date.month%}">{{ date.year }}年{{ date.month }}月</a></li>
                                 {% empty %}
                                     抱歉，文章暂未归档！
                                 {% endfor %}
@@ -117,7 +119,7 @@
                             {% get_categories as category_list %}
                             <ul class="clean-list">
                                 {% for category in category_list %}
-                                <li><a href="#">{{ category.name }}</a></li>
+                                <li><a href="{% url 'myblog:category' category.pk %}">{{ category.name }}</a></li>
                                 {% empty %}
                                     抱歉，暂无文章分类！
                                 {% endfor %}
@@ -128,6 +130,7 @@
             </div>
         </div>
     </div>
+    {% endblock %}
 
     <footer>
         <div class="widewrapper footer">
@@ -140,7 +143,7 @@
                             {% get_tags as tag_list %}
                             <ul class="tags">
                                 {% for tag in tag_list %}
-                                <li><a href="#">{{ tag.name }}</a></li>
+                                <li><a href="{% url 'myblog:tag' tag.pk %}">{{ tag.name }}</a></li>
                                 {% empty %}
                                     抱歉，暂无标签！
                                 {% endfor %}
@@ -155,7 +158,7 @@
                         {% get_recent_posts as recent_post_list %}
                         <ul class="clean-list">
                             {% for post in recent_post_list %}
-                            <li><a href="">{{ post.title }}</a></li>
+                            <li><a href="{% url 'myblog:detail' post.id %}">{{ post.title }}</a></li>
                             {% empty %}
                                 抱歉，暂时未发布文章！
                             {% endfor %}
@@ -177,7 +180,7 @@
             </div>
         </div>
         <div class="widewrapper copyright">
-                Copyright 2015 More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a>
+            <span class="glyphicon glyphicon-copyright-mark"></span> 2017 张建伟的个人博客
         </div>
     </footer>
 

@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block main %}
+{% block pagetitle %}
+    <title>我的博客-文章全文</title>
+{% endblock %}
+{% block maincontent %}
 <article class="blog-post">
     <header>
 
@@ -13,11 +16,11 @@
         <h1>{{ post.title }}</h1>
         <div class="meta">
             <h6>
-                <span>更新时间:&nbsp;{{ post.modified_time }}</span>
+                <span>更新时间:&nbsp;{{ post.modified_time.year }}年{{ post.modified_time.month }}月{{ post.modified_time.day }}日</span>
                 &nbsp;&nbsp;
                 <span>作者:&nbsp;{{ post.author }}</span>
                 &nbsp;&nbsp;
-                <span>阅读量:&nbsp;9999</span>
+                <span>阅读量:&nbsp;{{ post.views }}</span>
                 &nbsp;&nbsp;
                 <a href="#"><span>评论:&nbsp; 3</span></a>
             </h6>
