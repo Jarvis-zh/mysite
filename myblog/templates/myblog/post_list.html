@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block main%}
+<!-- 文章列表 -->
+{% for post in post_list %}
+    <div>
+        <article>
+            <heard>
+                <h3><span class="glyphicon glyphicon-bookmark"></span>&nbsp;&nbsp;{{ post.title }}</h3>
+                <h6>
+                    <span>更新时间:&nbsp;{{ post.modified_time }}</span>
+                    &nbsp;&nbsp;
+                    <span>作者:&nbsp;{{ post.author }}</span>
+                    &nbsp;&nbsp;
+                    <span>阅读量:&nbsp;9999</span>
+                </h6>
+            </heard>
+
+            <div>
+                {% if post.excerpt %}
+                    {{ post.excerpt }}
+                {% else %}
+                    {{ post.body }}
+                {% endif %}
+            </div>
+            <a href="{% url 'myblog:detail' post.id%}" class="btn btn-default" target="_blank">阅读全文&nbsp;<span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+            <h5><span class="glyphicon glyphicon-tag"><a href="#"><em>&nbsp;标签1</em></a></span></h5>
+        </article>
+    </div>
+    <hr>
+{% empty %}
+    抱歉，暂未发布文章！
+{% endfor %}
+
+<!-- 分页 -->
+<div class="btn-toolbar" role="toolbar" aria-label="">
+  <div class="btn-group" role="group" aria-label="">
+      <button type="button" class="btn btn-default"><<&nbsp;第一页</button>
+      <button type="button" class="btn btn-default"><&nbsp;上一页</button>
+      <button type="button" class="btn btn-default">3</button>
+      <button type="button" class="btn btn-default">4</button>
+      <button type="button" class="btn btn-default active">5</button>
+      <button type="button" class="btn btn-default">6</button>
+      <button type="button" class="btn btn-default">7</button>
+      <button type="button" class="btn btn-default">下一页&nbsp;></button>
+      <button type="button" class="btn btn-default">最后一页&nbsp;>></button>
+  </div>
+</div>
+{% endblock %}

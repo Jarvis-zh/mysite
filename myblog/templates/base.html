@@ -1,0 +1,191 @@
+{% load static %}
+{% load blog_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Home</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <!-- Bootstrap styles -->
+    <link rel="stylesheet" href="{% static 'myblog/css/bootstrap.min.css' %}">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="{% static 'myblog/css/style.css' %}" id="theme-styles">
+
+</head>
+<body>
+    <header>
+        <div class="widewrapper masthead">
+            <div class="container">
+                <a href="{% url 'myblog:index' %}" id="logo">
+                    <img src="{% static 'myblog/img/logo.png' %}" alt="clean Blog">
+                </a>
+
+                <div id="mobile-nav-toggle" class="pull-right">
+                    <a href="#" data-toggle="collapse" data-target=".clean-nav .navbar-collapse">
+                        <i class="fa fa-bars"></i>
+                    </a>
+                </div>
+
+                <nav class="pull-right nav">
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav nav-pills navbar-nav">
+                            <li>
+                                <a href="{% url 'myblog:index' %}">Home</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'myblog:about' %}">About</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'myblog:contact' %}">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+            </div>
+        </div>
+
+        <div class="widewrapper subheader">
+            <div class="container">
+                <div class="clean-breadcrumb">
+                    <a href="#">Blog</a>
+                </div>
+
+                <div class="clean-searchbox">
+                    <form action="#" method="get" accept-charset="utf-8" class="navbar-form navbar-right" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="widewrapper main">
+        <div class="container">
+            <div class="row">
+                <!-- 文章列表 -->
+                <div class="col-md-8 blog-main">
+                    {% block main %}
+                    {% endblock %}
+                </div>
+                <!-- 右边栏 -->
+                <div class="col-md-4 blog-aside">
+
+                    <div class="aside-widget">
+                        <header>
+                            <h3>精选文章</h3>
+                        </header>
+                        <div class="body">
+                            <ul class="clean-list">
+                                <li><a href="">Clean - Responsive HTML5 Template</a></li>
+                                <li><a href="">Responsive Pricing Table</a></li>
+                                <li><a href="">Yellow HTML5 Template</a></li>
+                                <li><a href="">Blackor Responsive Theme</a></li>
+                                <li><a href="">Portfolio Bootstrap Template</a></li>
+                                <li><a href="">Clean Slider Template</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="aside-widget">
+                        <header>
+                            <h3>归档</h3>
+                        </header>
+                        <div class="body">
+                            {% get_archives as date_list %}
+                            <ul class="clean-list">
+                                {% for date in date_list  %}
+                                <li><a href="">{{ date.year }}年{{ date.month }}月</a></li>
+                                {% empty %}
+                                    抱歉，文章暂未归档！
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="aside-widget">
+                        <header>
+                            <h3>分类</h3>
+                        </header>
+                        <div class="body">
+                            {% get_categories as category_list %}
+                            <ul class="clean-list">
+                                {% for category in category_list %}
+                                <li><a href="#">{{ category.name }}</a></li>
+                                {% empty %}
+                                    抱歉，暂无文章分类！
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="widewrapper footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h3> <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> 标签云</h3>
+
+                        <div class="body clearfix">
+                            {% get_tags as tag_list %}
+                            <ul class="tags">
+                                {% for tag in tag_list %}
+                                <li><a href="#">{{ tag.name }}</a></li>
+                                {% empty %}
+                                    抱歉，暂无标签！
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+
+                    </div>
+
+                    <div class="col-md-4">
+                        <h3> <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> 最新文章</h3>
+                        {% get_recent_posts as recent_post_list %}
+                        <ul class="clean-list">
+                            {% for post in recent_post_list %}
+                            <li><a href="">{{ post.title }}</a></li>
+                            {% empty %}
+                                抱歉，暂时未发布文章！
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div class="col-md-4">
+                        <h3> <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> 联系我</h3>
+
+                        <p>Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil fugiat, cupiditate veritatis excepturi tempore explicabo.</p>
+                         <div class="footer-widget-icon">
+                            <i class="fa fa-facebook"></i><i class="fa fa-twitter"></i><i class="fa fa-google"></i>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="widewrapper copyright">
+                Copyright 2015 More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a>
+        </div>
+    </footer>
+
+    <!-- by zhangjianwei@20171034
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    -->
+    <script src="{% static 'myblog/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'myblog/js/modernizr.js' %}"></script>
+
+</body>
+</html>

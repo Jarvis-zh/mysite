@@ -18,4 +18,7 @@ def about(request):
 def contact(request):
     return render(request, 'myblog/contact.html')
 
-
+def post_list(request):
+    post_list = Post.objects.all()
+    context = {'post_list' : post_list}
+    return render(request, 'myblog/post_list.html', context)
