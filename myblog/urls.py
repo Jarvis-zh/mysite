@@ -11,6 +11,4 @@ urlpatterns = [
     url(r'^tag/(?P<pk>[0-9]+)/$', views.tags, name='tag'),
     url(r'^about/$', views.about, name='about'),
     url(r'^contact/$', views.contact, name='contact'),
-    url(r'^list/$', views.all_post, name='postlist'),
-
 ]
