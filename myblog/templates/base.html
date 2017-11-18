@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    {% block pagetitle %}
+    {% block mypagetitle %}
     <title>我的博客</title>
     {% endblock %}
     <meta name="description" content="">
@@ -22,16 +22,10 @@
         <div class="widewrapper masthead">
             <div class="container">
                 <a href="{% url 'myblog:index' %}" id="logo">
-                    <img src="{% static 'myblog/img/logo.png' %}" alt="clean Blog">
+                    <img src="{% static 'myblog/img/logo_shudongjun.png' %}">
                 </a>
 
-                <div id="mobile-nav-toggle" class="pull-right">
-                    <a href="#" data-toggle="collapse" data-target=".clean-nav .navbar-collapse">
-                        <i class="fa fa-bars"></i>
-                    </a>
-                </div>
-
-                <nav class="pull-right nav">
+                <nav class="nav" id="mynav">
                     <div class="collapse navbar-collapse">
                         <ul class="nav nav-pills navbar-nav">
                             <li>
@@ -52,9 +46,12 @@
 
         <div class="widewrapper subheader">
             <div class="container">
+                {% block mybreadcrumb %}
                 <div class="clean-breadcrumb">
-                    <a href="#">Blog</a>
+                    <a href="{% url 'myblog:index' %}">首页</a>
                 </div>
+                {% endblock %}
+
 
                 <div class="clean-searchbox">
                     <form action="#" method="get" accept-charset="utf-8" class="navbar-form navbar-right" role="search">
@@ -67,13 +64,13 @@
             </div>
         </div>
     </header>
-    {% block mainbody %}
+    {% block mymainbody %}
     <div class="widewrapper main">
         <div class="container">
             <div class="row">
                 <!-- 文章列表 -->
                 <div class="col-md-8 blog-main">
-                    {% block maincontent %}
+                    {% block mymaincontent %}
                     {% endblock %}
                 </div>
                 <!-- 右边栏 -->
@@ -84,13 +81,13 @@
                             <h3>精选文章</h3>
                         </header>
                         <div class="body">
+                            {% get_hot_posts as hot_post_list %}
                             <ul class="clean-list">
-                                <li><a href="">Clean - Responsive HTML5 Template</a></li>
-                                <li><a href="">Responsive Pricing Table</a></li>
-                                <li><a href="">Yellow HTML5 Template</a></li>
-                                <li><a href="">Blackor Responsive Theme</a></li>
-                                <li><a href="">Portfolio Bootstrap Template</a></li>
-                                <li><a href="">Clean Slider Template</a></li>
+                                {% for post in hot_post_list%}
+                                    <li><a href="{% url 'myblog:detail' post.id %}">{{ post.title }}</a></li>
+                                {% empty %}
+                                    抱歉，暂无文章！
+                                {% endfor %}
                             </ul>
                         </div>
                     </div>
@@ -180,7 +177,7 @@
             </div>
         </div>
         <div class="widewrapper copyright">
-            <span class="glyphicon glyphicon-copyright-mark"></span> 2017 张建伟的个人博客
+            <span class="glyphicon glyphicon-copyright-mark"></span> 2017 树洞君张建伟的个人博客
         </div>
     </footer>
 

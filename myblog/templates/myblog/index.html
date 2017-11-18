@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
-{% block pagetitle %}
+{% block mypagetitle %}
     <title>我的博客-文章列表</title>
 {% endblock %}
-{% block maincontent%}
+{% block mymaincontent%}
 <!-- 文章列表 -->
 {% for post in post_list %}
     <div>
@@ -20,9 +20,9 @@
 
             <div>
                 {% if post.excerpt %}
-                    {{ post.excerpt }}
+                    {{ post.excerpt|truncatechars:100 }}
                 {% else %}
-                    {{ post.body }}
+                    {{ post.body|truncatechars:100 }}
                 {% endif %}
             </div>
             <a href="{% url 'myblog:detail' post.id%}" class="btn btn-default" target="_blank">阅读全文&nbsp;<span class="glyphicon glyphicon-circle-arrow-right"></span></a>
@@ -41,17 +41,29 @@
 {% endfor %}
 
 <!-- 分页 -->
+{% if is_paginated %}
 <div class="btn-toolbar" role="toolbar" aria-label="">
-  <div class="btn-group" role="group" aria-label="">
-      <button type="button" class="btn btn-default"><<&nbsp;第一页</button>
-      <button type="button" class="btn btn-default"><&nbsp;上一页</button>
-      <button type="button" class="btn btn-default">3</button>
-      <button type="button" class="btn btn-default">4</button>
-      <button type="button" class="btn btn-default active">5</button>
-      <button type="button" class="btn btn-default">6</button>
-      <button type="button" class="btn btn-default">7</button>
-      <button type="button" class="btn btn-default">下一页&nbsp;></button>
-      <button type="button" class="btn btn-default">最后一页&nbsp;>></button>
-  </div>
+    <div class="btn-group" role="group" aria-label="">
+        {% if left %}
+            {% if left_has_more %}
+                <a type="button" class="btn btn-default" href="?page=1"><<&nbsp;第一页</a>
+            {% endif %}
+            <a type="button" class="btn btn-default" href="?page={{ page_obj.number|add:-1 }}"><&nbsp;上一页</a>
+            {% for i in left %}
+                <a type="button" class="btn btn-default" href="?page={{ i }}">{{ i }}</a>
+            {% endfor %}
+        {% endif %}
+        <a type="button" class="btn btn-default active">{{ page_obj.number }}</a>
+        {% if right %}
+            {% for i in right %}
+                <a type="button" class="btn btn-default" href="?page={{ i }}">{{ i }}</a>
+            {% endfor %}
+            <a type="button" class="btn btn-default" href="?page={{ page_obj.number|add:1}}">下一页&nbsp;></a>
+            {% if right_has_more %}
+                <a type="button" class="btn btn-default" href="?page={{ paginator.num_pages }}">最后一页&nbsp;>></a>
+            {% endif %}
+        {% endif %}
+    </div>
 </div>
+{% endif %}
 {% endblock %}

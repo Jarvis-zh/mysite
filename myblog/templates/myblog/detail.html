@@ -1,9 +1,21 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block pagetitle %}
+
+{% block mypagetitle %}
     <title>我的博客-{{ post.title }}</title>
 {% endblock %}
-{% block maincontent %}
+
+{% block mybreadcrumb %}
+<div class="clean-breadcrumb">
+    <a href="{% url 'myblog:index' %}">首页</a>
+    <span class="separator">&#x2F;</span>
+    <a href="{% url 'myblog:category' post.category.pk %}">{{ post.category.name }}</a>
+    <span class="separator">&#x2F;</span>
+    <a href="{% url 'myblog:detail' post.id%}">{{ post.title }}</a>
+</div>
+{% endblock %}
+
+{% block mymaincontent %}
 <article class="blog-post">
     <header>
 

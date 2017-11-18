@@ -24,3 +24,7 @@ def get_categories():
 @register.simple_tag
 def get_tags():
     return Tag.objects.all()
+#热门文章
+@register.simple_tag
+def get_hot_posts(num=5):
+    return Post.objects.all().order_by('-views')[:num]

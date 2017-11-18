@@ -1,9 +1,17 @@
 {% extends 'base.html' %}
-{% block pagetitle %}
+{% block mypagetitle %}
     <title>我的博客-联系我</title>
 {% endblock %}
 
-{% block mainbody %}
+{% block mybreadcrumb %}
+<div class="clean-breadcrumb">
+    <a href="{% url 'myblog:index' %}">首页</a>
+    <span class="separator">&#x2F;</span>
+    <a href="{% url 'myblog:contact' %}">联系我</a>
+</div>
+{% endblock %}
+
+{% block mymainbody %}
 <div class="widewrapper main">
     <div class="container">
         <div class="row">
@@ -11,9 +19,9 @@
                 <h2>联系</h2>
 
                 <form action="#" method="get" accept-charset="utf-8" class="contact-form">
-                    <input type="text" name="name" id="contact-name" placeholder="Name" class="form-control input-lg">
-                    <input type="email" name="email" id="contact-email" placeholder="Email" class="form-control input-lg">
-                    <textarea rows="10" name="message" id="contact-body" placeholder="Your Message" class="form-control input-lg"></textarea>
+                    <input type="text" name="name" id="contact-name" placeholder="称呼" class="form-control input-lg">
+                    <input type="email" name="email" id="contact-email" placeholder="邮箱地址" class="form-control input-lg">
+                    <textarea rows="10" name="message" id="contact-body" placeholder="正文" class="form-control input-lg"></textarea>
                     <div class="buttons clearfix">
                         <button type="submit" class="btn btn-xlarge btn-clean-one">提交</button>
                     </div>

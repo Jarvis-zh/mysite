@@ -1,12 +1,20 @@
 {% extends 'base.html' %}
-{% block pagetitle %}
+{% block mypagetitle %}
     <title>我的博客-关于我</title>
 {% endblock %}
 
-{% block mainbody %}
+{% block mybreadcrumb %}
+<div class="clean-breadcrumb">
+    <a href="{% url 'myblog:index' %}">首页</a>
+    <span class="separator">&#x2F;</span>
+    <a href="{% url 'myblog:about' %}">关于我</a>
+</div>
+{% endblock %}
+
+{% block mymainbody %}
 <div class="widewrapper main">
     <div class="container about">
-        <h1>Hello, My name is <span class="about-bold">  John Doe</span></h1>
+        <h1>Hello, My name is <span class="about-bold">  Jarvis</span></h1>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus inventore magni ratione perferendis ex molestiae cum reiciendis perspiciatis consequuntur, nihil ducimus corrupti! Ipsum nesciunt ipsa nobis obcaecati labore, rem recusandae?</p>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui quo sint asperiores, ut doloremque eum commodi, odit nisi sed repellendus earum recusandae pariatur consectetur minus rerum, magni dolores officiis magnam.</p>
 

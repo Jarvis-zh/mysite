@@ -61,14 +61,21 @@ Font Awesome Icons
 }
 
 .masthead {
-  padding-top: 55px;
-  padding-bottom: 55px;
+  padding-top: 5px;
+  padding-bottom: 15px;
 }
 
 .masthead #logo {
   float: left;
   display: block;
 }
+
+.masthead #mynav {
+  float: right;
+  display: block;
+  padding-top: 35px;
+}
+
 
 .widewrapper {
   background-color: #fff;
@@ -88,7 +95,8 @@ Font Awesome Icons
   background-color: #f1f1f1;
   color: #444;
   font-size: 16px;
-  min-height: 63px;
+  min-height: 60px;
+  max-height: 63px;
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
 }
