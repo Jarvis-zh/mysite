@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block mypagetitle %}
-    <title>我的博客-{{ post.title }}</title>
+    <title>树洞君博客-{{ post.title }}</title>
 {% endblock %}
 
 {% block mybreadcrumb %}
@@ -34,7 +34,7 @@
                 &nbsp;&nbsp;
                 <span>阅读量:&nbsp;{{ post.views }}</span>
                 &nbsp;&nbsp;
-                <a href="#"><span>评论:&nbsp; 3</span></a>
+                <a href="#"><span>评论:&nbsp; {{ comment_list.count }}</span></a>
             </h6>
         </div>
         <p>{{ post.body }}</p>
@@ -59,110 +59,49 @@
 <aside class="comments" id="comments">
     <hr>
 
-    <h2><span class="glyphicon glyphicon-comment"></span> 6 Comments</h2>
-
+    <h2><span class="glyphicon glyphicon-comment"></span> {{ comment_list.count }} 条评论</h2>
+    {% for comment in comment_list %}
     <article class="comment">
         <header class="clearfix">
             <img src="{% static 'myblog/img/avatar.png' %}" alt="A Smart Guy" class="avatar">
             <div class="meta">
-                <h3><a href="#">John Doe</a></h3>
+                <h3><a href="#">{{ comment.name }}</a></h3>
                 <span class="date">
-                    24 August 2015
+                    {{ comment.created_time.year }}年{{ comment.created_time.month }}月{{ comment.created_time.day }}日{{ comment.created_time.hour }}:{{ comment.created_time.minute  }}:{{ comment.created_time.second }}
                 </span>
                 <span class="separator">
                     -
                 </span>
 
-                <a href="#create-comment" class="reply-link">Reply</a>
+                <a href="#create-comment" class="reply-link">回复</a>
             </div>
         </header>
          <div class="body">
-           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere sit perspiciatis debitis, vel ducimus praesentium expedita, assumenda ipsum cum corrupti dolorum modi. Rem ipsam similique sapiente obcaecati tenetur beatae voluptatibus.
-        </div>
+             {{ comment.text }}
+         </div>
     </article>
-
-    <article class="comment reply">
-        <header class="clearfix">
-            <img src="{% static 'myblog/img/avatar.png' %}" alt="A Smart Guy" class="avatar">
-            <div class="meta">
-                <h3><a href="#">John Doe</a></h3>
-                <span class="date">
-                    24 August 2015
-                </span>
-                <span class="separator">
-                    -
-                </span>
-
-                <a href="#create-comment" class="reply-link">Reply</a>
-            </div>
-        </header>
-         <div class="body">
-           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere sit perspiciatis debitis, vel ducimus praesentium expedita, assumenda ipsum cum corrupti dolorum modi. Rem ipsam similique sapiente obcaecati tenetur beatae voluptatibus.
-        </div>
-    </article>
-
-    <article class="comment ">
-        <header class="clearfix">
-            <img src="{% static 'myblog/img/avatar.png' %}" alt="A Smart Guy" class="avatar">
-            <div class="meta">
-                <h3><a href="#">John Doe</a></h3>
-                <span class="date">
-                    24 August 2015
-                </span>
-                <span class="separator">
-                    -
-                </span>
-
-                <a href="#create-comment" class="reply-link">Reply</a>
-            </div>
-        </header>
-         <div class="body">
-           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere sit perspiciatis debitis, vel ducimus praesentium expedita, assumenda ipsum cum corrupti dolorum modi. Rem ipsam similique sapiente obcaecati tenetur beatae voluptatibus.
-        </div>
-    </article>
-
-    <article class="comment">
-        <header class="clearfix">
-            <img src="{% static 'myblog/img/avatar.png' %}" alt="A Smart Guy" class="avatar">
-            <div class="meta">
-                <h3><a href="#">John Doe</a></h3>
-                <span class="date">
-                    24 August 2015
-                </span>
-                <span class="separator">
-                    -
-                </span>
-
-                <a href="#create-comment" class="reply-link">Reply</a>
-            </div>
-        </header>
-         <div class="body">
-           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere sit perspiciatis debitis, vel ducimus praesentium expedita, assumenda ipsum cum corrupti dolorum modi. Rem ipsam similique sapiente obcaecati tenetur beatae voluptatibus.
-        </div>
-    </article>
+    {% endfor %}
 </aside>
 
 <aside class="create-comment" id="create-comment">
     <hr>
 
-    <h2><span class="glyphicon glyphicon-pencil"></span> Add Comment</h2>
+    <h2><span class="glyphicon glyphicon-pencil"></span> 我要评论</h2>
 
-    <form action="#" method="get" accept-charset="utf-8">
+    <form action="{% url 'comments:post_comment' post.pk %}" method="post" accept-charset="utf-8">
+        {% csrf_token %}
         <div class="row">
             <div class="col-md-6">
-                <input type="text" name="name" id="comment-name" placeholder="Your Name" class="form-control input-lg">
+                <input type="text" name="name" id="comment-name" placeholder="名字" class="form-control input-lg">
             </div>
             <div class="col-md-6">
-                <input type="email" name="email" id="comment-email" placeholder="Email" class="form-control input-lg">
+                <input type="email" name="email" id="comment-email" placeholder="Email邮箱" class="form-control input-lg">
             </div>
         </div>
-
-        <input type="url" name="name" id="comment-url" placeholder="Website" class="form-control input-lg">
-
-        <textarea rows="10" name="message" id="comment-body" placeholder="Your Message" class="form-control input-lg"></textarea>
-
-        <div class="buttons clearfix">
-            <button type="submit" class="btn btn-xlarge btn-clean-one">Submit</button>
+        <input type="url" name="url" id="comment-url" placeholder="网址" class="form-control input-lg">
+        <textarea rows="10" name="text" id="comment-body" placeholder="评论内容" class="form-control input-lg"></textarea>
+        <div class="row">
+            <button type="submit" class="btn btn-xlarge btn-clean-one">发表评论</button>
         </div>
     </form>
 </aside>

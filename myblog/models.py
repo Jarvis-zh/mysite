@@ -1,6 +1,8 @@
 #-*- coding:utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.html import strip_tags
+from django.urls import reverse
 
 
 
@@ -51,7 +53,16 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+    def save(self, *args, **kwargs):
+        if not self.excerpt:
+            self.excerpt = strip_tags(self.body)[:100]
+        super(Post, self).save(*args, **kwargs)
+
     def increase_views(self):
         self.views += 1
         self.save(update_fields=['views'])
+
+    def get_absolute_url(self):
+        return reverse('myblog:detail', kwargs={'pk' : self.pk})
+
 

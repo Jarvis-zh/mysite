@@ -1,8 +1,12 @@
 {% extends 'base.html' %}
 {% block mypagetitle %}
-    <title>我的博客-文章列表</title>
+    <title>树洞君博客-文章列表</title>
 {% endblock %}
 {% block mymaincontent%}
+{% if error_msg %}
+    <p>{{ error_msg }}</p>
+{% endif %}
+
 <!-- 文章列表 -->
 {% for post in post_list %}
     <div>
@@ -19,17 +23,13 @@
             </heard>
 
             <div>
-                {% if post.excerpt %}
-                    {{ post.excerpt|truncatechars:100 }}
-                {% else %}
-                    {{ post.body|truncatechars:100 }}
-                {% endif %}
+                <p>{{ post.excerpt }}</p>
             </div>
             <a href="{% url 'myblog:detail' post.id%}" class="btn btn-default" target="_blank">阅读全文&nbsp;<span class="glyphicon glyphicon-circle-arrow-right"></span></a>
             <h5>
                 <span class="glyphicon glyphicon-tag">
                 {% for tag in post.tags.all %}
-                <a href="{% url 'myblog:tag' tag.pk %}"><em>&nbsp;{{ tag.name }}</em></a>
+                <a href="{% url 'myblog:tag' tag.pk %}"><em>{{ tag.name }}</em></a>
                 {% endfor %}
                 </span>
             </h5>

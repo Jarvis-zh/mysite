@@ -1,7 +1,9 @@
 #-*- coding:utf-8 -*-
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
+from django.db.models import Q
 from .models import Post, Category, Tag
+from comments.forms import CommentForm
 
 
 #首页
@@ -120,6 +122,29 @@ class PostDetailView(DetailView):
         response = super(PostDetailView, self).get(self, request, *args, **kwargs)
         self.object.increase_views() #每次获取简单计数，认为阅读量加一
         return response
+
+    def get_context_data(self, **kwargs):
+        context = super(PostDetailView, self).get_context_data(**kwargs)
+        form = CommentForm()
+        comment_list = self.object.comment_set.all()
+        context.update({
+            'form' : form,
+            'comment_list' : comment_list
+        }
+        )
+        return context
+
+def search(request):
+    q = request.GET.get('q')
+    error_msg = ''
+
+    if not q:
+        error_msg = "请输入关键词"
+        return render(request, 'myblog/index.html', {'error_msg': error_msg})
+
+    post_list = Post.objects.filter(Q(title__icontains=q) | Q(body__icontains=q))
+    return render(request, 'myblog/index.html', {'error_msg': error_msg,
+                                               'post_list': post_list})
 
 
 def about(request):

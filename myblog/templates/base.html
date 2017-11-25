@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     {% block mypagetitle %}
-    <title>我的博客</title>
+    <title>树洞君博客</title>
     {% endblock %}
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
@@ -54,9 +54,9 @@
 
 
                 <div class="clean-searchbox">
-                    <form action="#" method="get" accept-charset="utf-8" class="navbar-form navbar-right" role="search">
+                    <form action="{% url 'myblog:search' %}" method="get" accept-charset="utf-8" class="navbar-form navbar-right" role="search">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search">
+                            <input type="text" class="form-control" name="q" placeholder="输入关键词...">
                         </div>
                         <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
                     </form>
@@ -164,11 +164,33 @@
 
                     <div class="col-md-4">
                         <h3> <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> 联系我</h3>
-
-                        <p>Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil fugiat, cupiditate veritatis excepturi tempore explicabo.</p>
-                         <div class="footer-widget-icon">
-                            <i class="fa fa-facebook"></i><i class="fa fa-twitter"></i><i class="fa fa-google"></i>
+                        <p>联系我可以<a href="{% url 'myblog:contact' %}" style="color: #3f8ebd"><b>给我发邮件</b></a></p>
+                        <p>或通过以下方式联系我</p>
+                        <div class="row">
+                            <div class="col-sm-6 col-md-4">
+                                <div class="thumbnail">
+                                    <img src="{% static 'myblog/img/erweima.jpg' %}">
+                                    <div class="caption">
+                                    <p>微信公众号</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-4">
+                                <div class="thumbnail">
+                                    <img src="{% static 'myblog/img/erweima.jpg' %}">
+                                    <div class="caption">
+                                    <p>微信赞助</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-4">
+                                <div class="thumbnail">
+                                    <img src="{% static 'myblog/img/erweima.jpg' %}">
+                                    <div class="caption">
+                                    <p>支付宝赞助</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
