@@ -4,7 +4,7 @@ Mako==0.9.1
 Markdown==2.6.9
 MarkupSafe==0.18
 PyMySQL==0.7.11
-Pygments==2.2.0
+Pygments==2.7.4
 apturl==0.5.2ubuntu4
 chardet==2.2.1
 checkbox-ng==0.3
